@@ -158,7 +158,7 @@ function App() {
             </div>
             <div>
                 <button> &nbsp;</button>
-                <button> &nbsp;</button>
+                <button onClick={() => handleNumberClick('.')}> . </button>
                 <button onClick={() => handleNumberClick(0)}>0</button>
                 <button onClick={handleCalculation}>=</button>
 
