@@ -1,0 +1,86 @@
+*, *::before, *::after {
+    box-sizing: border-box
+}
+body {
+    /*margin-left: 50% ;*/
+    /*margin-right: 50% ;*/
+    align-content: center;
+    background: linear-gradient(to right, #00AAFF, #9336cc);
+}
+
+.App{
+    display: flex;
+    justify-content: center;
+}
+
+.calculator-grid{
+    align-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, 4rem);
+    grid-template-rows: minmax(7rem,auto) repeat(6, 4rem);
+    margin: 0 auto;
+
+}
+
+.span-two{
+    grid-column: span 2 ;
+}
+
+.output {
+    grid-column:1/-1;
+    background-color: rgba(0,0,0, .75);
+    display: flex;
+    color: white;
+    font-size: 1.5rem;
+    padding:.75rem;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.calc-history-container{
+    width: 16rem;
+}
+
+.calc-history{
+    background: black;
+    color: red;
+    width: 16rem;
+    word-wrap: break-word;
+    word-break: break-all;
+    text-indent: 10px;
+}
+
+.clear-hist-button{
+    margin-left: 30%;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+button {
+    cursor: pointer;
+    font-size: 2rem;
+    color:red;
+    font-weight: bold;
+    background-color: black;
+    border-color: red;
+}
+
+button:hover,
+button:focus{
+    background-color: rgba(0,0,0, 0.5);
+}
+
+h1{
+    background: black;
+    grid-column: span 4;
+    border-color: red;
+    border-style: solid;
+    color: red;
+    text-align: center;
+   justify-content: space-around;
+}
+h2{
+    text-align: center;
+    border-color: red;
+    border-style: solid;
+}

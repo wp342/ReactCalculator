@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react"
-import './App.css';
+import './styles.css'
 import RenderHistory from "./renderHistory";
 
 let numberToggle = true;
@@ -20,7 +20,7 @@ function App() {
     useEffect(() => {
         const calcHistory = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
         console.log(calcHistory);
-        if (calcHistory.length>0) {
+        if (calcHistory.length > 0) {
             setCalcHistory(calcHistory)
         }
     }, []);
@@ -42,11 +42,14 @@ function App() {
     const renderHistory = () => {
         if (calcHistory.length > 0) {
             return (
-                <>
-                    <h2>Calculation History</h2>
-                    <RenderHistory calcHistory={calcHistory}/>
-                    <button onClick={handleClearHistory}>Clear History</button>
-                </>
+                <div className='calc-history-container'>
+                    <div className='calc-history'>
+                        <h2>Calculation History</h2>
+                        <RenderHistory calcHistory={calcHistory}/>
+
+                    </div>
+                    <button className='clear-hist-button' onClick={handleClearHistory}>Clear History</button>
+                </div>
             )
         }
     }
@@ -57,14 +60,16 @@ function App() {
         setNumber2([])
         setOperation(null)
         setAnswer(null)
+        equals = false;
+        numberToggle = true;
     }
 
 
     const handleNumberClick = (value) => {
         if (equals) {
             clearOperation()
-            equals = !equals;
         }
+        equals = false;
         if (numberToggle) {
             setNumber1(prevValue => [...prevValue, value].join(''))
         } else {
@@ -85,12 +90,13 @@ function App() {
             clearOperation()
             setNumber1([answerHolder])
             numberToggle = false;
-            equals = false;
+
         } else if (number1.length !== 0 && number2.length === 0) {
             numberToggle = false;
         } else {
             numberToggle = !numberToggle
         }
+        equals = false;
         setOperation(operation)
     }
 
@@ -120,52 +126,46 @@ function App() {
         }
         setAnswer(ans);
         setCalcHistory(prevState => [...prevState, {number1: num1, number2: num2, operation: operation, answer: ans}])
-        //console.log(JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)));
         return ans;
 
     }
     return (
         <div className="App">
-            <h1> Basic Calculator</h1>
-            <div>{number1} {operation} {number2} = {answer}</div>
             <div>
-                <div>
-                    <button> &nbsp;</button>
-                    <button> &nbsp;</button>
-                    <button onClick={() => handleOperationClick('clear')}>C</button>
-                    <button onClick={() => handleOperationClick('+')}>+</button>
-                </div>
-                <div>
+                <h1> Basic Calculator</h1>
+                <div className='calculator-grid'>
+
+                    <div className='output'>{number1} {operation} {number2} {equals ? '=' : ''} {answer}</div>
+
                     <button onClick={() => handleNumberClick(1)}>1</button>
                     <button onClick={() => handleNumberClick(2)}>2</button>
                     <button onClick={() => handleNumberClick(3)}>3</button>
-                    <button onClick={() => handleOperationClick('-')}> -</button>
+                    <button onClick={() => handleOperationClick('+')}>+</button>
 
-                </div>
-                <div>
+
                     <button onClick={() => handleNumberClick(4)}>4</button>
                     <button onClick={() => handleNumberClick(5)}>5</button>
                     <button onClick={() => handleNumberClick(6)}>6</button>
-                    <button onClick={() => handleOperationClick('x')}> x</button>
-                </div>
-                <div>
+                    <button onClick={() => handleOperationClick('-')}> -</button>
+
+
                     <button onClick={() => handleNumberClick(7)}>7</button>
                     <button onClick={() => handleNumberClick(8)}>8</button>
                     <button onClick={() => handleNumberClick(9)}>9</button>
+                    <button onClick={() => handleOperationClick('x')}> x</button>
+
+
+                    <button> &nbsp;</button>
+                    <button onClick={() => handleNumberClick('.')}> .</button>
+                    <button onClick={() => handleNumberClick(0)}>0</button>
                     <button onClick={() => handleOperationClick('/')}> /</button>
 
-                </div>
-            </div>
-            <div>
-                <button> &nbsp;</button>
-                <button onClick={() => handleNumberClick('.')}> . </button>
-                <button onClick={() => handleNumberClick(0)}>0</button>
-                <button onClick={handleCalculation}>=</button>
+                    <button className='span-two' onClick={() => handleOperationClick('clear')}>Clear</button>
+                    <button className='span-two' onClick={handleCalculation}>=</button>
 
-            </div>
 
-            <div>
                 {renderHistory()}
+                </div>
             </div>
         </div>
 
